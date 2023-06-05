@@ -1,8 +1,8 @@
 import train_utils
 
 # Using the functions:
-train_path = 'train.csv'
-test_path = 'test.csv'
+train_path = 'data/train.csv'
+test_path = 'data/test.csv'
 
 train, test = train_utils.load_data(train_path, test_path)
 train, test = train_utils.preprocess_data(train, test)
