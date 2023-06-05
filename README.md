@@ -1,6 +1,9 @@
-# Titanic-Survival-Prediction
+# Demo Azure ML
 
-<img src="https://images8.alphacoders.com/405/405029.jpg">
+## Objective
+
+The goal of this project is to demo the Azure ML funcitonalities for model training, deployment and testing.
+
 
 Using Machine learning algorithm on the famous Titanic Disaster Dataset for Predicting the survival of the passenger
                                                                     
