@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score
 
@@ -46,7 +46,7 @@ def prepare_test_data(test):
 
 def train_model(X_train, y_train):
     # Create a model and train it
-    model = LogisticRegression()
+    model = GaussianNB()
     model.fit(X_train, y_train)
     return model
 
@@ -55,15 +55,4 @@ def make_predictions(model, X_test):
     predictions = model.predict(X_test)
     return predictions
 
-# Using the functions:
-train_path = 'train.csv'
-test_path = 'test.csv'
 
-train, test = load_data(train_path, test_path)
-train, test = preprocess_data(train, test)
-X_train, y_train = prepare_data_for_training(train)
-X_test = prepare_test_data(test)
-model = train_model(X_train, y_train)
-predictions = make_predictions(model, X_test)
-
-print(predictions)
