@@ -60,7 +60,7 @@ class TestTitanicModel(unittest.TestCase):
         Ensure the function trains the model correctly.
         """
         train, test = load_data('data/train.csv', 'data/test.csv')
-        train, test = preprocess_data(train, test)
+        train, test = preprocess_data(train, test, "registered_model")
         X_train, y_train = prepare_data_for_training(train)
         model = train_model(X_train, y_train)
         self.assertIsNotNone(model)
@@ -74,7 +74,7 @@ class TestTitanicModel(unittest.TestCase):
         train, test = preprocess_data(train, test)
         X_train, y_train = prepare_data_for_training(train)
         X_test = prepare_test_data(test)
-        model = train_model(X_train, y_train)
+        model = train_model(X_train, y_train, "registered_model")
         predictions = make_predictions(model, X_test)
         self.assertEqual(len(predictions), len(X_test))
 

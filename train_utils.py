@@ -3,6 +3,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score
+import mlflow
+import mlflow.sklearn
+import os
 
 def load_data(train_path, test_path):
     """
@@ -82,7 +85,7 @@ def prepare_test_data(test):
     X_test = test.drop('Survived', axis=1)
     return X_test
 
-def train_model(X_train, y_train):
+def train_model(X_train, y_train, registered_model_name):
     """
     Train a Gaussian Naive Bayes model.
 
@@ -94,8 +97,34 @@ def train_model(X_train, y_train):
     :rtype: sklearn.naive_bayes.GaussianNB
     """
     # Create a model and train it
+    # Start Logging
+    mlflow.start_run()
+
+    # enable autologging
+    mlflow.sklearn.autolog()
+
     model = GaussianNB()
     model.fit(X_train, y_train)
+
+    # Registering the model to the workspace
+    print("Registering the model via MLFlow")
+    mlflow.sklearn.log_model(
+        sk_model=model,
+        registered_model_name=registered_model_name,
+        artifact_path=registered_model_name,
+    )
+
+    # Saving the model to a file
+    mlflow.sklearn.save_model(
+        sk_model=model,
+        path=os.path.join(registered_model_name, "trained_model"),
+    )
+    ###########################
+    #</save and register model>
+    ###########################
+    
+    # Stop Logging
+    mlflow.end_run()
     return model
 
 def make_predictions(model, X_test):
